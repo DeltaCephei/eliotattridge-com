@@ -1,0 +1,29 @@
+{
+  // Cloudflare Workers + Static Assets configuration for eliotattridge.com.
+  //
+  // This is the documented Astro deployment path for fully-static sites:
+  // no SSR adapter, no sessions, no KV bindings — just upload the contents
+  // of ./dist to Cloudflare's edge as static files.
+  //
+  // Why this file exists:
+  //   Without a wrangler config, `wrangler deploy` runs framework auto-
+  //   detection and installs @astrojs/cloudflare, which enables Astro
+  //   Sessions by default and crashes the build because we don't have a
+  //   KV namespace bound. With this file present, wrangler reads the
+  //   config directly and skips auto-detection.
+  //
+  // When to migrate to SSR (future):
+  //   1. Run `npx astro add cloudflare` to install the adapter
+  //   2. Add `main`, `compatibility_flags`, and an `ASSETS` binding here
+  //   3. See Astro's deploy guide for the full SSR config
+  //
+  // Reference:
+  //   https://docs.astro.build/en/guides/deploy/cloudflare/
+  //   https://developers.cloudflare.com/workers/static-assets/binding/
+
+  "name": "eliotattridge-com",
+  "compatibility_date": "2026-04-08",
+  "assets": {
+    "directory": "./dist"
+  }
+}
