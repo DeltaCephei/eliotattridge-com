@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>eliotattridge.com — visual directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f5f1;
+    --card: #ffffff;
+    --ink: #161410;
+    --ink-soft: #4a4538;
+    --ink-faint: #8a8473;
+    --rule: #e6e1d2;
+    --accent: #2c5e7a;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 1200px; margin: 0 auto; padding: 56px 56px 120px; }
+  header { margin-bottom: 48px; max-width: 720px; }
+  header h1 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 38px;
+    margin: 0 0 14px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  header p {
+    font-size: 17px;
+    color: var(--ink-soft);
+    margin: 0 0 12px;
+    line-height: 1.6;
+  }
+  header .meta {
+    font-size: 13px;
+    color: var(--ink-faint);
+    margin-top: 18px;
+  }
+  header .meta strong { color: var(--ink); font-weight: 600; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 28px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+  }
+  .card .preview {
+    height: 220px;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+    overflow: hidden;
+  }
+  .card .preview iframe {
+    width: 1200px;
+    height: 900px;
+    transform: scale(0.34);
+    transform-origin: top left;
+    border: none;
+    pointer-events: none;
+  }
+  .card .body {
+    padding: 22px 24px 24px;
+  }
+  .card .num {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--ink-faint);
+    margin-bottom: 6px;
+  }
+  .card h2 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 22px;
+    margin: 0 0 10px;
+    font-weight: 600;
+  }
+  .card p {
+    margin: 0 0 18px;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .card a.cta {
+    display: inline-block;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 1px;
+  }
+  .card a.cta::after { content: " →"; }
+
+  footer {
+    margin-top: 64px;
+    border-top: 1px solid var(--rule);
+    padding-top: 22px;
+    font-size: 13px;
+    color: var(--ink-faint);
+  }
+  .card.revision {
+    border-color: #1f4d2c;
+    box-shadow: 0 0 0 1px #1f4d2c inset;
+  }
+  .card.revision .num,
+  .card.revision a.cta {
+    color: #1f4d2c;
+  }
+  .card.revision a.cta {
+    border-bottom-color: #1f4d2c;
+  }
+</style>
+</head>
+<body>
+<main class="page">
+  <header>
+    <h1>eliotattridge.com — visual directions</h1>
+    <p>
+      Five distinct draft directions for your digital garden. Same seed content across all
+      five, so the only thing that varies is the visual feel. Click any card to open the
+      full-size mockup. Pick a favourite (or a hybrid) and the next session scaffolds the
+      real Astro project around it.
+    </p>
+    <p class="meta">
+      <strong>Same content in all five:</strong> field-notebook intro · 6 seed notes from your Obsidian wiki
+      (digital gardens, Maggie Appleton, CWMCT, compounding knowledge, two-sigma, moth field marks)
+      · topic cloud · footer.
+    </p>
+  </header>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="preview"><iframe src="01-field-notebook.html" title="Direction 01 — Field Notebook preview" loading="lazy"></iframe></div>
+      <div class="body">
+        <div class="num">01</div>
+        <h2>Field Notebook</h2>
+        <p>Cream paper, sepia ink, serif body, sparing handwritten marginalia. NZ natural-history flavour. Modern, not twee.</p>
+        <a class="cta" href="01-field-notebook.html">Open full preview</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="preview"><iframe src="02-lab-notebook.html" title="Direction 02 — Lab Notebook preview" loading="lazy"></iframe></div>
+      <div class="body">
+        <div class="num">02</div>
+        <h2>Lab Notebook</h2>
+        <p>Engineering pad grid, serif body with mono labels, numbered entries, restrained teal and rust. Clinical, scientific.</p>
+        <a class="cta" href="02-lab-notebook.html">Open full preview</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="preview"><iframe src="03-editorial-quarterly.html" title="Direction 03 — Editorial Quarterly preview" loading="lazy"></iframe></div>
+      <div class="body">
+        <div class="num">03</div>
+        <h2>Editorial Quarterly</h2>
+        <p>Magazine-grade typography, Fraunces serif display, oxblood accent, double rules, drop caps. The most polished direction.</p>
+        <a class="cta" href="03-editorial-quarterly.html">Open full preview</a>
+      </div>
+    </div>
+
+    <div class="card revision">
+      <div class="preview"><iframe src="03b-editorial-sans-green.html" title="Direction 03b — Editorial sans &amp; green preview" loading="lazy"></iframe></div>
+      <div class="body">
+        <div class="num">03b · revision</div>
+        <h2>Editorial, sans &amp; green</h2>
+        <p>Same editorial bones as 03. Inter Tight throughout, deep forest green in place of oxblood, italic Garamond used sparingly the way 04 used italic.</p>
+        <a class="cta" href="03b-editorial-sans-green.html">Open full preview</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="preview"><iframe src="04-plaintext-manuscript.html" title="Direction 04 — Plaintext Manuscript preview" loading="lazy"></iframe></div>
+      <div class="body">
+        <div class="num">04</div>
+        <h2>Plaintext Manuscript</h2>
+        <p>Mono-led, terminal cues, ASCII title, serif italic body previews, single green link colour. Reads like a beautiful man page.</p>
+        <a class="cta" href="04-plaintext-manuscript.html">Open full preview</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="preview"><iframe src="05-astronomers-almanac.html" title="Direction 05 — Astronomer&#39;s Almanac preview" loading="lazy"></iframe></div>
+      <div class="body">
+        <div class="num">05</div>
+        <h2>Astronomer's Almanac</h2>
+        <p>Deep navy, cream type, gold rule, Garamond display, faint star field, ✦ separators. The only dark direction.</p>
+        <a class="cta" href="05-astronomers-almanac.html">Open full preview</a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    Drafts only. None of this is committed to git or pushed anywhere.
+    Files live at <code>~/Desktop/claude-forge/eliotattridge-com/visual-directions/</code>.
+  </footer>
+</main>
+</body>
+</html>

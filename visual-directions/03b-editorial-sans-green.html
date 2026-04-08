@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>03b · Editorial (sans, green) — eliotattridge.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=EB+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #fdfcf9;
+    --ink: #14130f;
+    --ink-soft: #4a4a40;
+    --ink-faint: #8a8a7d;
+    --rule: #e6e3d6;
+    --accent: #1f4d2c;          /* deep forest green */
+    --accent-soft: #2f6a3e;
+    --display: 'Inter Tight', system-ui, sans-serif;
+    --sans: 'Inter', system-ui, sans-serif;
+    --italic: 'EB Garamond', Georgia, serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 56px 72px 140px;
+  }
+
+  /* Masthead */
+  header.masthead {
+    text-align: center;
+    border-top: 6px double var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding: 28px 0 22px;
+    margin-bottom: 56px;
+  }
+  .issue {
+    font-family: var(--sans);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.32em;
+    color: var(--ink-faint);
+    margin-bottom: 16px;
+  }
+  .issue span { color: var(--accent); }
+  header.masthead h1 {
+    margin: 0;
+    font-family: var(--display);
+    font-size: 78px;
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 0.95;
+    color: var(--accent);
+  }
+  header.masthead .tagline {
+    margin: 18px 0 0;
+    font-family: var(--italic);
+    font-style: italic;
+    font-size: 21px;
+    color: var(--ink-soft);
+    font-weight: 400;
+  }
+
+  nav.primary {
+    font-family: var(--sans);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    display: flex;
+    justify-content: center;
+    gap: 36px;
+    border-bottom: 1px solid var(--rule);
+    padding: 18px 0;
+    margin-bottom: 72px;
+    font-weight: 500;
+  }
+  nav.primary a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 4px;
+  }
+  nav.primary a:hover { border-bottom-color: var(--accent); color: var(--accent); }
+
+  /* Standfirst */
+  .standfirst {
+    max-width: 740px;
+    margin: 0 auto 80px;
+    text-align: center;
+    font-size: 24px;
+    line-height: 1.5;
+    font-weight: 300;
+    color: var(--ink-soft);
+    letter-spacing: -0.005em;
+  }
+  .standfirst::first-letter {
+    font-size: 78px;
+    float: left;
+    line-height: 0.85;
+    padding: 8px 14px 0 0;
+    color: var(--accent);
+    font-weight: 600;
+    font-family: var(--display);
+  }
+  .standfirst em {
+    color: var(--ink);
+    font-family: var(--italic);
+    font-style: italic;
+    font-size: 26px;
+  }
+
+  /* Section heads */
+  .section-rule {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin: 0 0 36px;
+  }
+  .section-rule::before, .section-rule::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--ink);
+  }
+  .section-rule h2 {
+    font-family: var(--sans);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    margin: 0;
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* Lede */
+  .lede {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 36px;
+    padding: 32px 0 44px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 36px;
+    align-items: start;
+  }
+  .lede .num {
+    font-family: var(--display);
+    font-size: 92px;
+    font-weight: 300;
+    line-height: 0.85;
+    color: var(--accent);
+    letter-spacing: -0.04em;
+  }
+  .lede h3 {
+    margin: 0 0 14px;
+    font-family: var(--display);
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.022em;
+  }
+  .lede h3 a { color: var(--ink); text-decoration: none; }
+  .lede h3 a:hover { color: var(--accent); }
+  .lede p {
+    font-size: 18px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    margin: 0 0 16px;
+    max-width: 620px;
+  }
+  .lede p .pull {
+    font-family: var(--italic);
+    font-style: italic;
+    color: var(--ink);
+    font-size: 20px;
+  }
+  .lede .meta {
+    font-family: var(--sans);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    font-weight: 500;
+  }
+  .lede .meta span + span::before { content: " · "; padding: 0 6px; color: var(--rule); }
+
+  /* Article grid */
+  .articles {
+    list-style: none;
+    margin: 0 0 80px;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px 64px;
+  }
+  .articles li {
+    border-top: 1px solid var(--rule);
+    padding-top: 24px;
+  }
+  .articles h3 {
+    margin: 0 0 10px;
+    font-family: var(--display);
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+  }
+  .articles h3 a { color: var(--ink); text-decoration: none; }
+  .articles h3 a:hover { color: var(--accent); }
+  .articles h3 em {
+    font-family: var(--italic);
+    font-style: italic;
+    font-weight: 500;
+  }
+  .articles p {
+    margin: 0 0 12px;
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.55;
+  }
+  .articles .meta {
+    font-family: var(--sans);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-faint);
+    font-weight: 500;
+  }
+  .articles .meta span + span::before { content: " · "; padding: 0 6px; color: var(--rule); }
+
+  /* Topic cloud */
+  .topics {
+    text-align: center;
+    margin: 0 0 80px;
+  }
+  .topics .label {
+    font-family: var(--sans);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    color: var(--ink-faint);
+    margin-bottom: 18px;
+    font-weight: 500;
+  }
+  .topics .cloud {
+    font-family: var(--italic);
+    font-style: italic;
+    font-size: 24px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .topics .cloud a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    margin: 0 6px;
+  }
+  .topics .cloud a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  footer.colophon {
+    font-family: var(--sans);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--ink-faint);
+    border-top: 6px double var(--ink);
+    padding-top: 22px;
+    text-align: center;
+    font-weight: 500;
+  }
+  footer.colophon a { color: var(--ink-soft); text-decoration: none; }
+
+  .design-meta {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    padding: 14px 18px;
+    max-width: 290px;
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .design-meta strong { color: var(--accent); display: block; margin-bottom: 6px; font-weight: 600; }
+</style>
+</head>
+<body>
+<main class="page">
+  <header class="masthead">
+    <div class="issue">Vol. I &nbsp;·&nbsp; Notes &amp; field observations &nbsp;·&nbsp; <span>Established 2026</span></div>
+    <h1>Eliot Attridge</h1>
+    <p class="tagline">A working scientist's notebook, kept in public</p>
+  </header>
+
+  <nav class="primary">
+    <a href="#">Notes</a>
+    <a href="#">Topics</a>
+    <a href="#">About</a>
+    <a href="#">Now</a>
+    <a href="#">Colophon</a>
+  </nav>
+
+  <p class="standfirst">
+    Half-formed ideas about <em>learning</em>, <em>artificial intelligence</em>, <em>natural history</em>, and the long quiet work of paying attention. Written first, edited later, kept in public so they can be argued with.
+  </p>
+
+  <div class="section-rule"><h2>Latest</h2></div>
+
+  <article class="lede">
+    <div class="num">№ 42</div>
+    <div>
+      <h3><a href="#">Notes are a thinking space, not a publication</a></h3>
+      <p>I needed somewhere that wasn't Tana, wasn't the Pursue Learning blog, and wasn't a draft folder I never opened again. This is my attempt at the third place. <span class="pull">Notes here are allowed to change, contradict each other, and remain unfinished for years.</span></p>
+      <div class="meta"><span>5 April 2026</span><span>PKM</span><span>writing</span><span>5 min read</span></div>
+    </div>
+  </article>
+
+  <ul class="articles">
+
+    <li>
+      <h3><a href="#">What Maggie Appleton gets right (and what I'd skip)</a></h3>
+      <p>The philosophy lands. The illustration style is hers. Borrowing the first without copying the second.</p>
+      <div class="meta"><span>2 Apr 2026</span><span>Digital gardens</span></div>
+    </li>
+
+    <li>
+      <h3><a href="#">Confidence-weighted multiple choice, revisited</a></h3>
+      <p>The literature is older and weirder than I expected. A small reading log on what it actually measures.</p>
+      <div class="meta"><span>28 Mar 2026</span><span>Assessment</span></div>
+    </li>
+
+    <li>
+      <h3><a href="#">Compounding knowledge, slowly</a></h3>
+      <p>What happens when small notes interact across years. The interest compounds; the labour doesn't.</p>
+      <div class="meta"><span>22 Mar 2026</span><span>Learning</span></div>
+    </li>
+
+    <li>
+      <h3><a href="#">The two-sigma problem, twenty years on</a></h3>
+      <p>Bloom's claim, the replication trouble, and what AI tutoring quietly changes about the question itself.</p>
+      <div class="meta"><span>15 Mar 2026</span><span>Learning science</span></div>
+    </li>
+
+    <li>
+      <h3><a href="#">Field marks: how a moth becomes a record</a></h3>
+      <p>From the porch light to iNaturalist to a verified sighting. The chain is more interesting than I thought.</p>
+      <div class="meta"><span>8 Mar 2026</span><span>Natural history</span></div>
+    </li>
+
+    <li>
+      <h3><a href="#">Reading: <em>Why Greatness Cannot Be Planned</em></a></h3>
+      <p>Notes towards a teacher's version of the objective deception. Stepping stones, not destinations.</p>
+      <div class="meta"><span>1 Mar 2026</span><span>Reading</span></div>
+    </li>
+
+  </ul>
+
+  <div class="topics">
+    <div class="label">Topics in this notebook</div>
+    <div class="cloud">
+      <a href="#">learning science</a>·
+      <a href="#">digital gardens</a>·
+      <a href="#">AI in education</a>·
+      <a href="#">PKM</a>·
+      <a href="#">natural history</a>·
+      <a href="#">moths</a>·
+      <a href="#">assessment</a>·
+      <a href="#">writing in public</a>·
+      <a href="#">attention</a>·
+      <a href="#">astronomy</a>
+    </div>
+  </div>
+
+  <footer class="colophon">
+    Started Anno 2026 &nbsp;·&nbsp; Marlborough, Aotearoa New Zealand &nbsp;·&nbsp; CC BY-NC 4.0 &nbsp;·&nbsp; <a href="#">RSS</a>
+  </footer>
+</main>
+
+<aside class="design-meta">
+  <strong>03b · Editorial (sans, green)</strong>
+  Inter Tight throughout, deep forest green accent (#1f4d2c), italic Garamond reserved for standfirst, pull line, topic cloud, tagline. Same editorial bones as 03, none of the serif body weight.
+</aside>
+</body>
+</html>

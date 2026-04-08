@@ -1,0 +1,58 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  pathname?: string;
+}
+
+const { title, description = "Eliot Attridge — a working scientist's notebook, kept in public.", pathname = Astro.url.pathname } = Astro.props;
+
+const navItems = [
+  { href: '/', label: 'Notes' },
+  { href: '/topics/', label: 'Topics' },
+  { href: '/about/', label: 'About' },
+  { href: '/now/', label: 'Now' },
+  { href: '/colophon/', label: 'Colophon' },
+];
+
+const isActive = (href: string) => {
+  if (href === '/') return pathname === '/';
+  return pathname.startsWith(href);
+};
+---
+<!doctype html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="generator" content={Astro.generator} />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="alternate" type="application/rss+xml" title="Eliot Attridge — notes" href="/rss.xml" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body>
+  <main class="page">
+    <slot name="masthead">
+      <header class="masthead masthead--inner">
+        <h1><a href="/">Eliot Attridge</a></h1>
+        <p class="tagline">A working scientist's notebook, kept in public</p>
+      </header>
+    </slot>
+
+    <nav class="nav" aria-label="Primary">
+      {navItems.map(item => (
+        <a href={item.href} class={isActive(item.href) ? 'is-active' : ''}>{item.label}</a>
+      ))}
+    </nav>
+
+    <slot />
+
+    <footer class="colophon">
+      Started 2026 &nbsp;·&nbsp; Marlborough, Aotearoa New Zealand &nbsp;·&nbsp; CC BY-NC 4.0 &nbsp;·&nbsp; <a href="/rss.xml">RSS</a>
+    </footer>
+  </main>
+</body>
+</html>

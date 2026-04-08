@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>04 · Plaintext Manuscript — eliotattridge.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f4efe4;
+    --ink: #1a1814;
+    --ink-soft: #524d42;
+    --ink-faint: #8a8474;
+    --rule: rgba(26, 24, 20, 0.18);
+    --link: #2d6a3a;
+    --link-hover: #1f4a26;
+    --serif: 'IBM Plex Serif', Georgia, serif;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 56px 40px 120px;
+  }
+
+  .terminal-bar {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-faint);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 12px;
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .terminal-bar .prompt::before { content: "$ "; color: var(--link); }
+
+  header.masthead {
+    margin-bottom: 40px;
+  }
+  header.masthead pre {
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.3;
+    color: var(--ink);
+    white-space: pre;
+    overflow-x: auto;
+  }
+  .tagline {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-style: italic;
+    color: var(--ink-soft);
+    margin: 18px 0 0;
+    line-height: 1.5;
+  }
+
+  nav.primary {
+    font-family: var(--mono);
+    font-size: 13px;
+    border-top: 1px dashed var(--rule);
+    border-bottom: 1px dashed var(--rule);
+    padding: 12px 0;
+    margin: 32px 0 40px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  nav.primary a {
+    color: var(--link);
+    text-decoration: none;
+  }
+  nav.primary a::before { content: "["; color: var(--ink-faint); }
+  nav.primary a::after { content: "]"; color: var(--ink-faint); }
+  nav.primary a:hover { color: var(--link-hover); text-decoration: underline; }
+
+  .intro {
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--ink);
+    margin: 0 0 48px;
+  }
+  .intro::before {
+    content: "> ";
+    color: var(--link);
+    font-family: var(--mono);
+  }
+
+  .section-head {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--ink-faint);
+    margin: 0 0 4px;
+  }
+  .section-head::before { content: "## "; color: var(--link); }
+
+  .listing-head {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-faint);
+    border-bottom: 1px solid var(--rule);
+    padding: 8px 0;
+    display: grid;
+    grid-template-columns: 110px 1fr 100px;
+    gap: 16px;
+  }
+  .entries {
+    list-style: none;
+    margin: 0 0 56px;
+    padding: 0;
+  }
+  .entry {
+    display: grid;
+    grid-template-columns: 110px 1fr 100px;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px dotted var(--rule);
+    align-items: baseline;
+  }
+  .entry .date {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+  .entry .title {
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.4;
+  }
+  .entry .title a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+  .entry .title a:hover { color: var(--link); border-bottom-color: var(--link); }
+  .entry .preview {
+    display: block;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+  .entry .topic {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-faint);
+    text-align: right;
+  }
+  .entry .topic::before { content: "#"; color: var(--link); }
+
+  .topics {
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 2.1;
+    margin: 12px 0 56px;
+    color: var(--ink-soft);
+  }
+  .topics a {
+    color: var(--ink);
+    text-decoration: none;
+    background: rgba(45, 106, 58, 0.08);
+    padding: 2px 8px;
+    margin-right: 6px;
+    border-radius: 2px;
+  }
+  .topics a::before { content: "#"; color: var(--link); }
+  .topics a:hover { background: rgba(45, 106, 58, 0.18); }
+
+  footer.colophon {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-faint);
+    border-top: 1px solid var(--rule);
+    padding-top: 14px;
+  }
+  footer.colophon a { color: var(--link); text-decoration: none; }
+  footer.colophon::before { content: "$ "; color: var(--link); }
+
+  .design-meta {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 14px 18px;
+    max-width: 280px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .design-meta strong { color: var(--ink); display: block; margin-bottom: 6px; font-size: 12px; }
+</style>
+</head>
+<body>
+<main class="page">
+  <div class="terminal-bar">
+    <span class="prompt">cat ~/notes/index.md</span>
+    <span>tty: web · enc: utf-8</span>
+  </div>
+
+  <header class="masthead">
+<pre>
+ ___  _ _       _      _   _   _      _    _
+| __|| (_) ___ | |_   /_\ | |_| |_ _ (_) _| | __ _ ___
+| _| | | |/ _ \|  _| / _ \|  _|  _| '_| |/ _` |/ _` / -_)
+|___||_|_|\___/ \__|/_/ \_\\__|\__|_| |_|\__,_|\__, \___|
+                                               |___/
+</pre>
+    <p class="tagline">A working scientist's notebook, kept in plain text.</p>
+  </header>
+
+  <nav class="primary">
+    <a href="#">notes</a>
+    <a href="#">topics</a>
+    <a href="#">about</a>
+    <a href="#">now</a>
+    <a href="#">colophon</a>
+    <a href="#">rss</a>
+  </nav>
+
+  <p class="intro">
+    Field notes, half-formed arguments, reading logs, and experiment write-ups across learning
+    science, AI, natural history, and the long quiet work of paying attention. Things here are
+    allowed to be unfinished. Notes change. The earlier versions are kept in git.
+  </p>
+
+  <div class="section-head">recent notes</div>
+  <div class="listing-head">
+    <span>date</span>
+    <span>title</span>
+    <span style="text-align:right;">topic</span>
+  </div>
+  <ul class="entries">
+
+    <li class="entry">
+      <span class="date">2026-04-05</span>
+      <span class="title">
+        <a href="#">Notes are a thinking space, not a publication</a>
+        <span class="preview">Why I needed somewhere that wasn't Tana, wasn't the blog, and wasn't a draft folder I never opened again.</span>
+      </span>
+      <span class="topic">pkm</span>
+    </li>
+
+    <li class="entry">
+      <span class="date">2026-04-02</span>
+      <span class="title">
+        <a href="#">What Maggie Appleton gets right (and what I'd skip)</a>
+        <span class="preview">The philosophy lands. The illustration style is hers. Borrowing the first without copying the second.</span>
+      </span>
+      <span class="topic">gardens</span>
+    </li>
+
+    <li class="entry">
+      <span class="date">2026-03-28</span>
+      <span class="title">
+        <a href="#">Confidence-weighted multiple choice, revisited</a>
+        <span class="preview">The literature is older and weirder than I expected. A small reading log on what it actually measures.</span>
+      </span>
+      <span class="topic">assessment</span>
+    </li>
+
+    <li class="entry">
+      <span class="date">2026-03-22</span>
+      <span class="title">
+        <a href="#">Compounding knowledge, slowly</a>
+        <span class="preview">What happens when small notes interact across years. The interest compounds; the labour doesn't.</span>
+      </span>
+      <span class="topic">learning</span>
+    </li>
+
+    <li class="entry">
+      <span class="date">2026-03-15</span>
+      <span class="title">
+        <a href="#">The two-sigma problem, twenty years on</a>
+        <span class="preview">Bloom's claim, the replication trouble, and what AI tutoring quietly changes about the question itself.</span>
+      </span>
+      <span class="topic">science</span>
+    </li>
+
+    <li class="entry">
+      <span class="date">2026-03-08</span>
+      <span class="title">
+        <a href="#">Field marks: how a moth becomes a record</a>
+        <span class="preview">From the porch light to iNaturalist to a verified sighting. The chain is more interesting than I thought.</span>
+      </span>
+      <span class="topic">nature</span>
+    </li>
+
+  </ul>
+
+  <div class="section-head">topics</div>
+  <div class="topics">
+    <a href="#">learning-science</a>
+    <a href="#">digital-gardens</a>
+    <a href="#">ai-in-education</a>
+    <a href="#">pkm</a>
+    <a href="#">natural-history</a>
+    <a href="#">moths</a>
+    <a href="#">assessment</a>
+    <a href="#">writing-in-public</a>
+    <a href="#">attention</a>
+  </div>
+
+  <footer class="colophon">
+    started 2026 · marlborough nz · cc by-nc 4.0 · <a href="#">rss</a> · <a href="#">git</a>
+  </footer>
+</main>
+
+<aside class="design-meta">
+  <strong>04 · Plaintext Manuscript</strong>
+  Mono-led, terminal cues, ASCII title, serif italic for body previews, single green link colour, very small. Reads like a man page that happens to also be beautiful.
+</aside>
+</body>
+</html>

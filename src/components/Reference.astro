@@ -1,0 +1,13 @@
+---
+// One reference entry. Lives inside <References>.
+//   <Reference n={1}>Bloom, B. S. (1984). The 2 sigma problem...</Reference>
+// The id matches the inline <Ref n={1} /> marker. The ↩ link returns to the marker.
+interface Props {
+  n: number;
+}
+const { n } = Astro.props;
+---
+<li id={`ref-${n}`} value={n}>
+  <slot />
+  <a href={`#ref-back-${n}`} class="ref-back" aria-label={`Back to citation ${n}`}>↩</a>
+</li>

@@ -1,0 +1,40 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  startDate: Date;
+  updated?: Date;
+  topics?: string[];
+  summary?: string;
+}
+
+const { title, startDate, updated, topics, summary } = Astro.props;
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-NZ', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<BaseLayout title={`${title} — Eliot Attridge`} description={summary}>
+  <article class="note-article">
+    <header class="note-header">
+      <div class="crumbs"><a href="/">Notes</a></div>
+      <h1>{title}</h1>
+      <div class="meta">
+        <span>{fmt(startDate)}</span>
+        {updated && <span>updated {fmt(updated)}</span>}
+        {topics && topics.length > 0 && (
+          <span>{topics.join(' · ')}</span>
+        )}
+      </div>
+    </header>
+
+    <div class="prose">
+      <slot />
+    </div>
+
+    <section class="backlinks" hidden>
+      <h2>Mentioned in</h2>
+      <ul></ul>
+    </section>
+  </article>
+</BaseLayout>

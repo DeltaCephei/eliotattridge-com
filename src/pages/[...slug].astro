@@ -1,0 +1,40 @@
+---
+import { getCollection, render } from 'astro:content';
+import NoteLayout from '../layouts/NoteLayout.astro';
+import Aside from '../components/Aside.astro';
+import Figure from '../components/Figure.astro';
+import IntroParagraph from '../components/IntroParagraph.astro';
+import Footnote from '../components/Footnote.astro';
+import Ref from '../components/Ref.astro';
+import References from '../components/References.astro';
+import Reference from '../components/Reference.astro';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('notes', ({ data }) => !data.draft);
+  return notes.map(entry => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+// MDX components available in every note without import.
+const components = { Aside, Figure, IntroParagraph, Footnote, Ref, References, Reference };
+
+// v1 has one real layout, but the switching mechanism is in place from day one
+// so a second layout is one new branch and one new component, never a new file.
+const layout = entry.data.layout;
+---
+{layout === 'default' && (
+  <NoteLayout
+    title={entry.data.title}
+    startDate={entry.data.startDate}
+    updated={entry.data.updated}
+    topics={entry.data.topics}
+    summary={entry.data.summary}
+  >
+    <Content components={components} />
+  </NoteLayout>
+)}

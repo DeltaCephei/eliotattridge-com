@@ -1,0 +1,78 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const allNotes = await getCollection('notes', ({ data }) => !data.draft);
+const notes = allNotes.sort(
+  (a, b) => b.data.startDate.getTime() - a.data.startDate.getTime()
+);
+
+const lede = notes[0];
+const rest = notes.slice(1);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-NZ', { day: 'numeric', month: 'long', year: 'numeric' });
+const fmtShort = (d: Date) =>
+  d.toLocaleDateString('en-NZ', { day: 'numeric', month: 'short', year: 'numeric' });
+
+// Topic cloud across all notes
+const topicSet = new Set<string>();
+for (const n of notes) (n.data.topics ?? []).forEach(t => topicSet.add(t));
+const topics = [...topicSet].sort();
+
+const ledeNum = String(notes.length).padStart(2, '\u2007');
+---
+<BaseLayout title="Eliot Attridge — notes">
+  <header slot="masthead" class="masthead">
+    <div class="issue">Vol. I &nbsp;·&nbsp; Notes &amp; field observations &nbsp;·&nbsp; <span>Established 2026</span></div>
+    <h1><a href="/">Eliot Attridge</a></h1>
+    <p class="tagline">A working scientist's notebook, kept in public</p>
+  </header>
+
+  <p class="standfirst">
+    Half-formed ideas about <em>learning</em>, <em>artificial intelligence</em>, <em>natural history</em>, and the long quiet work of paying attention. Written first, edited later, kept in public so they can be argued with.
+  </p>
+
+  <div class="section-rule"><h2>Latest</h2></div>
+
+  {lede && (
+    <article class="lede">
+      <div class="num">№ {ledeNum}</div>
+      <div>
+        <h3><a href={`/${lede.id}/`}>{lede.data.title}</a></h3>
+        {lede.data.summary && <p>{lede.data.summary}</p>}
+        <div class="meta">
+          <span>{fmt(lede.data.startDate)}</span>
+          {(lede.data.topics ?? []).map(t => <span>{t}</span>)}
+        </div>
+      </div>
+    </article>
+  )}
+
+  <ul class="articles">
+    {rest.map(note => (
+      <li>
+        <h3><a href={`/${note.id}/`}>{note.data.title}</a></h3>
+        {note.data.summary && <p>{note.data.summary}</p>}
+        <div class="meta">
+          <span>{fmtShort(note.data.startDate)}</span>
+          {(note.data.topics ?? []).slice(0, 1).map(t => <span>{t}</span>)}
+        </div>
+      </li>
+    ))}
+  </ul>
+
+  {topics.length > 0 && (
+    <div class="topics">
+      <div class="label">Topics in this notebook</div>
+      <div class="cloud">
+        {topics.map((t, i) => (
+          <>
+            <a href={`/topics/${t.replace(/\s+/g, '-').toLowerCase()}/`}>{t}</a>
+            {i < topics.length - 1 && '·'}
+          </>
+        ))}
+      </div>
+    </div>
+  )}
+</BaseLayout>

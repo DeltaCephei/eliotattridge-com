@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>02 · Lab Notebook — eliotattridge.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #fbfbf6;
+    --grid: rgba(86, 124, 142, 0.14);
+    --grid-strong: rgba(86, 124, 142, 0.22);
+    --ink: #131820;
+    --ink-soft: #3d4654;
+    --ink-faint: #7c8694;
+    --teal: #2c6478;
+    --rust: #a0421a;
+    --serif: 'Crimson Pro', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background-color: var(--paper);
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+      linear-gradient(var(--grid-strong) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-strong) 1px, transparent 1px);
+    background-size: 24px 24px, 24px 24px, 120px 120px, 120px 120px;
+    background-position: -1px -1px;
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 19px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 56px 120px;
+  }
+  header.masthead {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 18px;
+    margin-bottom: 36px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: end;
+  }
+  .brand h1 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .meta {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-faint);
+    line-height: 1.7;
+  }
+  .meta div { display: flex; gap: 8px; justify-content: flex-end; }
+  .meta strong { color: var(--teal); font-weight: 500; }
+
+  nav.primary {
+    font-family: var(--mono);
+    font-size: 12px;
+    display: flex;
+    gap: 4px;
+    margin-bottom: 48px;
+  }
+  nav.primary a {
+    color: var(--ink);
+    text-decoration: none;
+    padding: 6px 12px;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+  }
+  nav.primary a + a { border-left: none; }
+  nav.primary a:hover { background: var(--ink); color: var(--paper); }
+
+  .abstract {
+    border-left: 3px solid var(--teal);
+    padding: 16px 20px;
+    margin: 0 0 56px;
+    background: rgba(44, 100, 120, 0.04);
+    font-size: 18px;
+    line-height: 1.55;
+    max-width: 680px;
+  }
+  .abstract::before {
+    content: "ABSTRACT";
+    display: block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+
+  .section-head {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 6px;
+    margin-bottom: 8px;
+  }
+
+  .entries { list-style: none; margin: 0 0 64px; padding: 0; }
+  .entry {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 32px;
+    padding: 24px 0;
+    border-bottom: 1px dotted var(--ink-faint);
+  }
+  .entry:last-child { border-bottom: none; }
+  .entry-id {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--teal);
+    line-height: 1.6;
+  }
+  .entry-id .num { display: block; font-size: 22px; color: var(--ink); font-weight: 600; margin-bottom: 4px; }
+  .entry h3 {
+    margin: 0 0 8px;
+    font-size: 23px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+  .entry h3 a { color: var(--ink); text-decoration: none; border-bottom: 1px solid transparent; }
+  .entry h3 a:hover { border-bottom-color: var(--rust); color: var(--rust); }
+  .entry p {
+    margin: 0 0 10px;
+    color: var(--ink-soft);
+    font-size: 17px;
+  }
+  .entry .tags {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-faint);
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .entry .tags span::before { content: "// "; color: var(--teal); }
+
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    margin: 12px 0 64px;
+  }
+  .topics-grid a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    padding: 8px 12px;
+    border: 1px solid var(--grid-strong);
+    background: var(--paper);
+  }
+  .topics-grid a:hover { border-color: var(--teal); color: var(--teal); }
+  .topics-grid a .count { color: var(--ink-faint); margin-left: 6px; }
+
+  footer.colophon {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-faint);
+    border-top: 1px solid var(--ink);
+    padding-top: 16px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .design-meta {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    padding: 14px 18px;
+    max-width: 280px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .design-meta strong { color: var(--ink); display: block; margin-bottom: 6px; font-size: 12px; }
+</style>
+</head>
+<body>
+<main class="page">
+  <header class="masthead">
+    <div class="brand">
+      <h1>Eliot Attridge / lab notebook</h1>
+    </div>
+    <div class="meta">
+      <div>vol. <strong>1</strong> · entries <strong>006</strong></div>
+      <div>updated <strong>2026-04-08</strong> NZST</div>
+      <div>status <strong>active</strong></div>
+    </div>
+  </header>
+
+  <nav class="primary">
+    <a href="#">/notes</a>
+    <a href="#">/topics</a>
+    <a href="#">/about</a>
+    <a href="#">/now</a>
+    <a href="#">/rss</a>
+  </nav>
+
+  <div class="abstract">
+    Working notebook of a science teacher, researcher, and tinkerer in Marlborough, NZ.
+    Reading notes, experiment logs, half-finished arguments, and field observations across
+    learning science, AI, natural history, and personal knowledge management. Things are
+    written here so they can be argued with later.
+  </div>
+
+  <div class="section-head">Recent entries</div>
+  <ul class="entries">
+
+    <li class="entry">
+      <div class="entry-id">
+        <span class="num">042</span>
+        2026-04-05
+      </div>
+      <div>
+        <h3><a href="#">Notes are a thinking space, not a publication</a></h3>
+        <p>Why I needed somewhere that wasn't Tana, wasn't the blog, and wasn't a draft folder I never opened again.</p>
+        <div class="tags"><span>pkm</span><span>writing</span><span>digital gardens</span></div>
+      </div>
+    </li>
+
+    <li class="entry">
+      <div class="entry-id">
+        <span class="num">041</span>
+        2026-04-02
+      </div>
+      <div>
+        <h3><a href="#">What Maggie Appleton gets right (and what I'd skip)</a></h3>
+        <p>The philosophy lands. The illustration style is hers. Borrowing the first without copying the second.</p>
+        <div class="tags"><span>digital gardens</span><span>design</span><span>writing</span></div>
+      </div>
+    </li>
+
+    <li class="entry">
+      <div class="entry-id">
+        <span class="num">040</span>
+        2026-03-28
+      </div>
+      <div>
+        <h3><a href="#">Confidence-weighted multiple choice, revisited</a></h3>
+        <p>The literature is older and weirder than I expected. A small reading log on what it actually measures.</p>
+        <div class="tags"><span>assessment</span><span>learning science</span><span>cwmct</span></div>
+      </div>
+    </li>
+
+    <li class="entry">
+      <div class="entry-id">
+        <span class="num">039</span>
+        2026-03-22
+      </div>
+      <div>
+        <h3><a href="#">Compounding knowledge, slowly</a></h3>
+        <p>What happens when small notes interact across years. The interest compounds; the labour doesn't.</p>
+        <div class="tags"><span>pkm</span><span>learning</span><span>time</span></div>
+      </div>
+    </li>
+
+    <li class="entry">
+      <div class="entry-id">
+        <span class="num">038</span>
+        2026-03-15
+      </div>
+      <div>
+        <h3><a href="#">The two-sigma problem, twenty years on</a></h3>
+        <p>Bloom's claim, the replication trouble, and what AI tutoring quietly changes about the question itself.</p>
+        <div class="tags"><span>learning science</span><span>ai</span><span>tutoring</span></div>
+      </div>
+    </li>
+
+    <li class="entry">
+      <div class="entry-id">
+        <span class="num">037</span>
+        2026-03-08
+      </div>
+      <div>
+        <h3><a href="#">Field marks: how a moth becomes a record</a></h3>
+        <p>From the porch light to iNaturalist to a verified sighting. The chain is more interesting than I thought.</p>
+        <div class="tags"><span>natural history</span><span>moths</span><span>observation</span></div>
+      </div>
+    </li>
+
+  </ul>
+
+  <div class="section-head">Topics</div>
+  <div class="topics-grid">
+    <a href="#">learning science <span class="count">14</span></a>
+    <a href="#">AI in education <span class="count">11</span></a>
+    <a href="#">digital gardens <span class="count">8</span></a>
+    <a href="#">PKM <span class="count">7</span></a>
+    <a href="#">natural history <span class="count">6</span></a>
+    <a href="#">assessment <span class="count">5</span></a>
+    <a href="#">moths <span class="count">4</span></a>
+    <a href="#">writing in public <span class="count">4</span></a>
+    <a href="#">attention <span class="count">3</span></a>
+  </div>
+
+  <footer class="colophon">
+    <span>// started 2026 · CC BY-NC 4.0</span>
+    <span>// astro + cloudflare pages</span>
+  </footer>
+</main>
+
+<aside class="design-meta">
+  <strong>02 · Lab Notebook</strong>
+  Engineering pad grid, serif body + mono labels, numbered entries, restrained teal + rust accents. Clinical, scientist, evergreen.
+</aside>
+</body>
+</html>

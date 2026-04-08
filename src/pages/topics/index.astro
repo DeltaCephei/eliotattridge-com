@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const notes = await getCollection('notes', ({ data }) => !data.draft);
+const counts = new Map<string, number>();
+for (const n of notes) {
+  for (const t of n.data.topics ?? []) counts.set(t, (counts.get(t) ?? 0) + 1);
+}
+const topics = [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+
+const slug = (t: string) => t.replace(/\s+/g, '-').toLowerCase();
+---
+<BaseLayout title="Topics — Eliot Attridge">
+  <div class="section-rule"><h2>All topics</h2></div>
+  <div class="topics">
+    <div class="cloud">
+      {topics.map(([t, n], i) => (
+        <>
+          <a href={`/topics/${slug(t)}/`}>{t} <small>({n})</small></a>
+          {i < topics.length - 1 && '·'}
+        </>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

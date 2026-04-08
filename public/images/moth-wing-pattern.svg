@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Schematic moth wing pattern with labelled field marks">
+  <rect width="800" height="500" fill="#fefefa"/>
+
+  <!-- moth body (centered) -->
+  <ellipse cx="400" cy="250" rx="14" ry="80" fill="#3d3528"/>
+  <circle cx="400" cy="180" r="18" fill="#3d3528"/>
+  <line x1="400" y1="170" x2="385" y2="140" stroke="#3d3528" stroke-width="2"/>
+  <line x1="400" y1="170" x2="415" y2="140" stroke="#3d3528" stroke-width="2"/>
+
+  <!-- left forewing -->
+  <path d="M 386 180 Q 200 130 130 220 Q 110 280 200 290 Q 320 280 390 240 Z"
+        fill="#d6cdb1" stroke="#3d3528" stroke-width="1.5"/>
+  <!-- left hindwing -->
+  <path d="M 390 250 Q 280 320 220 380 Q 270 410 360 380 Q 395 350 395 290 Z"
+        fill="#cfc09a" stroke="#3d3528" stroke-width="1.2"/>
+
+  <!-- right forewing (mirror) -->
+  <path d="M 414 180 Q 600 130 670 220 Q 690 280 600 290 Q 480 280 410 240 Z"
+        fill="#d6cdb1" stroke="#3d3528" stroke-width="1.5"/>
+  <!-- right hindwing -->
+  <path d="M 410 250 Q 520 320 580 380 Q 530 410 440 380 Q 405 350 405 290 Z"
+        fill="#cfc09a" stroke="#3d3528" stroke-width="1.2"/>
+
+  <!-- forewing markings -->
+  <ellipse cx="240" cy="220" rx="18" ry="8" fill="#1f4d2c" opacity="0.65"/>
+  <ellipse cx="560" cy="220" rx="18" ry="8" fill="#1f4d2c" opacity="0.65"/>
+  <circle cx="290" cy="200" r="5" fill="#3d3528"/>
+  <circle cx="510" cy="200" r="5" fill="#3d3528"/>
+  <path d="M 200 250 Q 260 245 320 250" stroke="#3d3528" stroke-width="1.2" fill="none"/>
+  <path d="M 600 250 Q 540 245 480 250" stroke="#3d3528" stroke-width="1.2" fill="none"/>
+
+  <!-- hindwing eye spots -->
+  <circle cx="290" cy="360" r="14" fill="#1f4d2c" opacity="0.5"/>
+  <circle cx="290" cy="360" r="6" fill="#3d3528"/>
+  <circle cx="510" cy="360" r="14" fill="#1f4d2c" opacity="0.5"/>
+  <circle cx="510" cy="360" r="6" fill="#3d3528"/>
+
+  <!-- labels -->
+  <g font-family="Inter Tight, system-ui, sans-serif" font-size="13" fill="#4a4a40">
+    <text x="100" y="195">forewing apex</text>
+    <line x1="155" y1="200" x2="180" y2="210" stroke="#8a8a7d" stroke-width="0.8"/>
+
+    <text x="120" y="225" font-style="italic" fill="#1f4d2c" font-family="EB Garamond, serif" font-size="14">orbicular spot</text>
+    <line x1="200" y1="221" x2="222" y2="220" stroke="#1f4d2c" stroke-width="0.8"/>
+
+    <text x="100" y="370">hindwing eye spot</text>
+    <line x1="200" y1="365" x2="276" y2="360" stroke="#8a8a7d" stroke-width="0.8"/>
+
+    <text x="660" y="195" text-anchor="start">tornal angle</text>
+    <line x1="650" y1="200" x2="630" y2="210" stroke="#8a8a7d" stroke-width="0.8"/>
+
+    <text x="660" y="370" text-anchor="start">marginal fringe</text>
+    <line x1="650" y1="365" x2="610" y2="360" stroke="#8a8a7d" stroke-width="0.8"/>
+  </g>
+</svg>

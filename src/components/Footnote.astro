@@ -1,0 +1,11 @@
+---
+// Inline footnote: <Footnote n={1}>Marginal point.</Footnote>
+// Renders a small superscript that links to the matching item in
+// the page's <Footnotes> list. v1 keeps it simple — author manages numbering.
+interface Props {
+  n: number;
+}
+const { n } = Astro.props;
+---
+<sup class="fn-ref"><a href={`#fn-${n}`} id={`fnref-${n}`}>[{n}]</a></sup>
+<span hidden data-footnote={n}><slot /></span>

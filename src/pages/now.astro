@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const updated = new Date('2026-04-08');
+const fmt = (d: Date) => d.toLocaleDateString('en-NZ', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<BaseLayout title="Now — Eliot Attridge">
+  <article class="note-article">
+    <header class="note-header">
+      <div class="crumbs"><a href="/">Notes</a></div>
+      <h1>Now</h1>
+      <div class="meta"><span>Updated {fmt(updated)}</span></div>
+    </header>
+    <div class="prose">
+      <p>What I'm thinking about and working on this week.</p>
+      <h2>At the front of my mind</h2>
+      <ul>
+        <li>Setting up this site as a public thinking space, separate from the Pursue Learning blog.</li>
+        <li>Confidence-weighted multiple choice — what it actually measures and whether to trial it with Year 12 next term.</li>
+        <li>The two-sigma problem reread in light of the 2023 onwards AI tutoring RCTs.</li>
+      </ul>
+      <h2>Active projects</h2>
+      <ul>
+        <li>TermSmith iOS app heading toward App Store launch.</li>
+        <li>Biology Level 3 — Week 3 content for AS 91603.</li>
+        <li>MBC AI framework rolling out across departments.</li>
+      </ul>
+      <h2>Reading</h2>
+      <ul>
+        <li><em>Why Greatness Cannot Be Planned</em> — Stanley &amp; Lehman.</li>
+        <li>Andy Matuschak's evergreen notes essays, again.</li>
+      </ul>
+      <p>
+        Borrowed from <a href="https://nownownow.com/about">Derek Sivers' /now page convention</a>.
+      </p>
+    </div>
+  </article>
+</BaseLayout>

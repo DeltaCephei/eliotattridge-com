@@ -1,0 +1,10 @@
+---
+// Inline reference marker. Use in body text:
+//   The figure was small<Ref n={1} />.
+// Pairs with a matching <Reference n={1}>...</Reference> at the bottom of the note.
+interface Props {
+  n: number;
+}
+const { n } = Astro.props;
+---
+<sup class="ref"><a href={`#ref-${n}`} id={`ref-back-${n}`}>{n}</a></sup>

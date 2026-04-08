@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('notes', ({ data }) => !data.draft);
+  const topicSet = new Set<string>();
+  for (const n of notes) (n.data.topics ?? []).forEach(t => topicSet.add(t));
+
+  const slugify = (t: string) => t.replace(/\s+/g, '-').toLowerCase();
+
+  return [...topicSet].map(topic => ({
+    params: { topic: slugify(topic) },
+    props: {
+      topic,
+      notes: notes
+        .filter(n => (n.data.topics ?? []).includes(topic))
+        .sort((a, b) => b.data.startDate.getTime() - a.data.startDate.getTime()),
+    },
+  }));
+}
+
+const { topic, notes } = Astro.props;
+
+const fmtShort = (d: Date) =>
+  d.toLocaleDateString('en-NZ', { day: 'numeric', month: 'short', year: 'numeric' });
+---
+<BaseLayout title={`${topic} — Eliot Attridge`}>
+  <div class="section-rule"><h2>{topic}</h2></div>
+  <ul class="topic-list">
+    {notes.map(note => (
+      <li>
+        <span class="date">{fmtShort(note.data.startDate)}</span>
+        <div>
+          <h3><a href={`/${note.id}/`}>{note.data.title}</a></h3>
+          {note.data.summary && <p>{note.data.summary}</p>}
+        </div>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>

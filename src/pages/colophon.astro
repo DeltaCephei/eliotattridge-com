@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Colophon — Eliot Attridge">
+  <article class="note-article">
+    <header class="note-header">
+      <div class="crumbs"><a href="/">Notes</a></div>
+      <h1>Colophon</h1>
+    </header>
+    <div class="prose">
+      <p>How this site is built and why.</p>
+      <h2>Stack</h2>
+      <ul>
+        <li>Astro 5 with MDX content collections, deployed on Cloudflare Pages.</li>
+        <li>One catch-all route, one note layout for v1, designed to grow more layouts later without rewriting page files.</li>
+        <li>Pagefind for static search at build time.</li>
+        <li>RSS at <a href="/rss.xml">/rss.xml</a>.</li>
+        <li>No CMS, no database, no analytics, no comments. <code>git push</code> publishes.</li>
+      </ul>
+      <h2>Type</h2>
+      <ul>
+        <li><strong>Inter Tight</strong> for display, headlines, and body, weighted 300 to 700.</li>
+        <li><strong>EB Garamond Italic</strong> as a quiet flourish in standfirst lines, blockquotes, topic clouds, and book titles.</li>
+        <li>Deep forest green (<code>#1f4d2c</code>) is the only accent.</li>
+      </ul>
+      <h2>Inspiration</h2>
+      <p>
+        The philosophy is borrowed from <a href="https://maggieappleton.com">Maggie Appleton</a> — notes
+        change, contradict, and remain unfinished in public — without copying her illustrator-led visuals.
+        The structural pattern (one catch-all route, type discriminator on every collection,
+        component-led MDX) is lifted from her V3 codebase.
+      </p>
+      <h2>Licence</h2>
+      <p>Words and images are CC BY-NC 4.0 unless otherwise marked.</p>
+    </div>
+  </article>
+</BaseLayout>

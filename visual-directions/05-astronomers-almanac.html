@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>05 · Astronomer's Almanac — eliotattridge.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --night: #0e1322;
+    --night-soft: #161c30;
+    --paper: #ece6d4;
+    --paper-soft: #cfc8b3;
+    --paper-faint: #8d8772;
+    --gold: #c9a86a;
+    --rule: rgba(236, 230, 212, 0.18);
+    --serif: 'EB Garamond', Georgia, serif;
+    --display: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
+    --sans: 'Inter', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--night);
+    background-image:
+      radial-gradient(circle at 80% 10%, rgba(201, 168, 106, 0.08), transparent 40%),
+      radial-gradient(circle at 15% 60%, rgba(60, 100, 160, 0.10), transparent 50%),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><g fill='%23ece6d4'><circle cx='50' cy='80' r='0.6' opacity='0.7'/><circle cx='130' cy='40' r='0.4' opacity='0.5'/><circle cx='200' cy='150' r='0.7' opacity='0.8'/><circle cx='280' cy='90' r='0.4' opacity='0.5'/><circle cx='350' cy='200' r='0.5' opacity='0.6'/><circle cx='420' cy='60' r='0.6' opacity='0.7'/><circle cx='500' cy='180' r='0.4' opacity='0.5'/><circle cx='570' cy='100' r='0.5' opacity='0.6'/><circle cx='80' cy='280' r='0.5' opacity='0.6'/><circle cx='180' cy='340' r='0.4' opacity='0.5'/><circle cx='260' cy='420' r='0.7' opacity='0.8'/><circle cx='340' cy='380' r='0.5' opacity='0.6'/><circle cx='460' cy='320' r='0.6' opacity='0.7'/><circle cx='540' cy='480' r='0.4' opacity='0.5'/><circle cx='40' cy='500' r='0.5' opacity='0.6'/><circle cx='150' cy='560' r='0.5' opacity='0.6'/></g></svg>");
+    color: var(--paper);
+    font-family: var(--serif);
+    font-size: 19px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 64px 64px 140px;
+  }
+
+  header.masthead {
+    text-align: center;
+    border-top: 1px solid var(--gold);
+    border-bottom: 1px solid var(--gold);
+    padding: 28px 0 24px;
+    margin-bottom: 56px;
+    position: relative;
+  }
+  header.masthead::before, header.masthead::after {
+    content: "✦";
+    color: var(--gold);
+    position: absolute;
+    top: -10px;
+    background: var(--night);
+    padding: 0 12px;
+    font-size: 18px;
+  }
+  header.masthead::before { left: 50%; transform: translateX(-50%); }
+  header.masthead::after { display: none; }
+  .almanac {
+    font-family: var(--sans);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--paper-faint);
+    margin-bottom: 14px;
+  }
+  .almanac span { color: var(--gold); }
+  header.masthead h1 {
+    margin: 0;
+    font-family: var(--display);
+    font-size: 64px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1;
+    color: var(--paper);
+  }
+  header.masthead .tagline {
+    margin: 18px 0 0;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--paper-soft);
+    font-family: var(--serif);
+    font-weight: 300;
+  }
+
+  nav.primary {
+    font-family: var(--sans);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    padding: 0;
+    margin-bottom: 64px;
+  }
+  nav.primary a {
+    color: var(--paper-soft);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 3px;
+  }
+  nav.primary a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+
+  .ephemeris {
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--paper-soft);
+    text-align: center;
+    max-width: 660px;
+    margin: 0 auto 80px;
+    font-style: italic;
+  }
+  .ephemeris .signa { color: var(--gold); }
+  .ephemeris em { color: var(--paper); font-style: italic; }
+
+  .section-head {
+    text-align: center;
+    margin: 0 0 32px;
+    position: relative;
+  }
+  .section-head h2 {
+    display: inline-block;
+    font-family: var(--sans);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    margin: 0;
+    background: var(--night);
+    padding: 0 18px;
+    position: relative;
+    z-index: 1;
+    font-weight: 500;
+  }
+  .section-head::before {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: 50%;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  .entries { list-style: none; margin: 0 0 80px; padding: 0; }
+  .entry {
+    padding: 28px 0;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 32px;
+    align-items: baseline;
+  }
+  .entry:last-child { border-bottom: none; }
+  .entry .date {
+    font-family: var(--sans);
+    font-size: 11px;
+    color: var(--paper-faint);
+    text-align: right;
+    line-height: 1.5;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .entry .date .day {
+    display: block;
+    font-family: var(--display);
+    font-size: 32px;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 4px;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .entry h3 {
+    margin: 0 0 8px;
+    font-family: var(--display);
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--paper);
+  }
+  .entry h3 a { color: var(--paper); text-decoration: none; }
+  .entry h3 a:hover { color: var(--gold); }
+  .entry p {
+    margin: 0 0 10px;
+    color: var(--paper-soft);
+    font-size: 17px;
+    line-height: 1.55;
+  }
+  .entry .topics-inline {
+    font-family: var(--sans);
+    font-size: 11px;
+    color: var(--paper-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+  .entry .topics-inline span + span::before { content: " ✦ "; color: var(--gold); padding: 0 4px; }
+
+  .topics-cluster {
+    text-align: center;
+    margin: 0 0 80px;
+  }
+  .topics-cluster a {
+    display: inline-block;
+    margin: 6px 8px;
+    padding: 4px 14px;
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--paper-soft);
+    text-decoration: none;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+  }
+  .topics-cluster a:hover { color: var(--gold); border-color: var(--gold); }
+
+  footer.colophon {
+    font-family: var(--sans);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--paper-faint);
+    border-top: 1px solid var(--gold);
+    padding-top: 24px;
+    text-align: center;
+  }
+  footer.colophon a { color: var(--paper-soft); text-decoration: none; }
+
+  .design-meta {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--night-soft);
+    border: 1px solid var(--gold);
+    padding: 14px 18px;
+    max-width: 280px;
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--paper-soft);
+    line-height: 1.55;
+  }
+  .design-meta strong { color: var(--gold); display: block; margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<main class="page">
+  <header class="masthead">
+    <div class="almanac">An Almanac &nbsp;·&nbsp; <span>Vol. I</span> &nbsp;·&nbsp; Notes from a thinking life</div>
+    <h1>Eliot Attridge</h1>
+    <p class="tagline">A working scientist's notebook, kept under southern skies.</p>
+  </header>
+
+  <nav class="primary">
+    <a href="#">Notes</a>
+    <a href="#">Topics</a>
+    <a href="#">About</a>
+    <a href="#">Now</a>
+    <a href="#">Colophon</a>
+  </nav>
+
+  <p class="ephemeris">
+    <span class="signa">✦</span>&nbsp; Half-formed ideas about <em>learning</em>, <em>artificial intelligence</em>,
+    <em>natural history</em>, and the long quiet work of paying attention. Things here are allowed to be unfinished.
+    Notes change. The earlier versions are kept. &nbsp;<span class="signa">✦</span>
+  </p>
+
+  <div class="section-head"><h2>Recent Entries</h2></div>
+  <ul class="entries">
+
+    <li class="entry">
+      <div class="date"><span class="day">05</span> Apr<br>2026</div>
+      <div>
+        <h3><a href="#">Notes are a thinking space, not a publication</a></h3>
+        <p>Why I needed somewhere that wasn't Tana, wasn't the blog, and wasn't a draft folder I never opened again.</p>
+        <div class="topics-inline"><span>PKM</span><span>Writing</span><span>Digital gardens</span></div>
+      </div>
+    </li>
+
+    <li class="entry">
+      <div class="date"><span class="day">02</span> Apr<br>2026</div>
+      <div>
+        <h3><a href="#">What Maggie Appleton gets right (and what I'd skip)</a></h3>
+        <p>The philosophy lands. The illustration style is hers. Borrowing the first without copying the second.</p>
+        <div class="topics-inline"><span>Digital gardens</span><span>Design</span></div>
+      </div>
+    </li>
+
+    <li class="entry">
+      <div class="date"><span class="day">28</span> Mar<br>2026</div>
+      <div>
+        <h3><a href="#">Confidence-weighted multiple choice, revisited</a></h3>
+        <p>The literature is older and weirder than I expected. A small reading log on what it actually measures.</p>
+        <div class="topics-inline"><span>Assessment</span><span>Learning science</span></div>
+      </div>
+    </li>
+
+    <li class="entry">
+      <div class="date"><span class="day">22</span> Mar<br>2026</div>
+      <div>
+        <h3><a href="#">Compounding knowledge, slowly</a></h3>
+        <p>What happens when small notes interact across years. The interest compounds; the labour doesn't.</p>
+        <div class="topics-inline"><span>PKM</span><span>Learning</span><span>Time</span></div>
+      </div>
+    </li>
+
+    <li class="entry">
+      <div class="date"><span class="day">15</span> Mar<br>2026</div>
+      <div>
+        <h3><a href="#">The two-sigma problem, twenty years on</a></h3>
+        <p>Bloom's claim, the replication trouble, and what AI tutoring quietly changes about the question itself.</p>
+        <div class="topics-inline"><span>Learning science</span><span>AI</span><span>Tutoring</span></div>
+      </div>
+    </li>
+
+    <li class="entry">
+      <div class="date"><span class="day">08</span> Mar<br>2026</div>
+      <div>
+        <h3><a href="#">Field marks: how a moth becomes a record</a></h3>
+        <p>From the porch light to iNaturalist to a verified sighting. The chain is more interesting than I thought.</p>
+        <div class="topics-inline"><span>Natural history</span><span>Moths</span><span>Observation</span></div>
+      </div>
+    </li>
+
+  </ul>
+
+  <div class="section-head"><h2>Topics</h2></div>
+  <div class="topics-cluster">
+    <a href="#">learning science</a>
+    <a href="#">digital gardens</a>
+    <a href="#">AI in education</a>
+    <a href="#">PKM</a>
+    <a href="#">natural history</a>
+    <a href="#">moths</a>
+    <a href="#">assessment</a>
+    <a href="#">writing in public</a>
+    <a href="#">astronomy</a>
+    <a href="#">attention</a>
+  </div>
+
+  <footer class="colophon">
+    Started 2026 &nbsp;✦&nbsp; Marlborough, Aotearoa &nbsp;✦&nbsp; CC BY-NC 4.0 &nbsp;✦&nbsp; <a href="#">RSS</a>
+  </footer>
+</main>
+
+<aside class="design-meta">
+  <strong>05 · Astronomer's Almanac</strong>
+  Deep navy, cream type, gold rule, Garamond display, faint star field, ✦ separators. Dark, quiet, contemplative. The only dark direction.
+</aside>
+</body>
+</html>
