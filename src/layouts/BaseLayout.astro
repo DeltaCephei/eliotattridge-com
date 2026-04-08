@@ -7,7 +7,7 @@ interface Props {
   pathname?: string;
 }
 
-const { title, description = "Eliot Attridge — a working scientist's notebook, kept in public.", pathname = Astro.url.pathname } = Astro.props;
+const { title, description = "Eliot Attridge — half-formed notes from the seam of science, learning, and technology.", pathname = Astro.url.pathname } = Astro.props;
 
 const navItems = [
   { href: '/', label: 'Latest' },
@@ -39,7 +39,7 @@ const isActive = (href: string) => {
     <slot name="masthead">
       <header class="masthead masthead--inner">
         <h1><a href="/">Eliot Attridge</a></h1>
-        <p class="tagline">A working scientist's notebook, kept in public</p>
+        <p class="tagline">Half-formed notes from the seam of science, learning, and technology</p>
       </header>
     </slot>
 

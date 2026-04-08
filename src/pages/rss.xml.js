@@ -8,7 +8,7 @@ export async function GET(context) {
   );
   return rss({
     title: 'Eliot Attridge — notes',
-    description: "A working scientist's notebook, kept in public.",
+    description: "Half-formed notes from the seam of science, learning, and technology.",
     site: context.site,
     items: sorted.map(note => ({
       title: note.data.title,
