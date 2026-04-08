@@ -1,0 +1,26 @@
+---
+// Backlinks component. Reads from src/data/backlinks.json (built by
+// scripts/build-metadata.mjs before each dev/build run) and renders the
+// list of notes that link to the current slug.
+//
+// Renders nothing if there are no backlinks — silent absence is correct.
+
+import backlinks from '../data/backlinks.json';
+
+interface Props {
+  slug: string;
+}
+
+const { slug } = Astro.props;
+const list = (backlinks as Record<string, { slug: string; title: string }[]>)[slug] ?? [];
+---
+{list.length > 0 && (
+  <section class="backlinks">
+    <h2>Mentioned in</h2>
+    <ul>
+      {list.map(b => (
+        <li><a href={`/${b.slug}/`}>{b.title}</a></li>
+      ))}
+    </ul>
+  </section>
+)}

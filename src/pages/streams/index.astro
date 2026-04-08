@@ -1,0 +1,69 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { KIND_LABELS, KIND_ORDER } from '../../content.config';
+
+const notes = await getCollection('notes', ({ data }) => !data.draft);
+
+// Count by kind, in canonical order
+const counts = new Map<string, number>();
+for (const k of KIND_ORDER) counts.set(k, 0);
+for (const n of notes) {
+  const k = (n.data as any).kind;
+  counts.set(k, (counts.get(k) ?? 0) + 1);
+}
+---
+<BaseLayout title="Streams — Eliot Attridge">
+  <div class="section-rule"><h2>Streams</h2></div>
+
+  <p class="standfirst">
+    The garden has different shapes of writing in it. Notes are developed; <em>musings</em> are thinking-out-loud; <em>fragments</em> are one-shot. <em>Links</em> are reactions to things found online, and <em>reading</em> is reactions to books.
+  </p>
+
+  <ul class="stream-list">
+    {KIND_ORDER.map(kind => {
+      const label = KIND_LABELS[kind];
+      const n = counts.get(kind) ?? 0;
+      return (
+        <li>
+          <a href={`/streams/${kind}/`}>
+            <span class="stream-name">{label.plural}</span>
+            <span class="stream-count">{n}</span>
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+</BaseLayout>
+
+<style>
+  .stream-list {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .stream-list a {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--ink-faint);
+    text-decoration: none;
+    color: var(--ink);
+    font-family: var(--display);
+  }
+  .stream-list a:hover {
+    background: rgba(31, 77, 44, 0.04);
+    color: var(--accent);
+  }
+  .stream-name {
+    font-size: 1.1rem;
+  }
+  .stream-count {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+  }
+</style>

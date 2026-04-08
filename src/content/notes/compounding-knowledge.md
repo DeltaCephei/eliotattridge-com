@@ -1,4 +1,5 @@
 ---
+kind: note
 title: "Compounding knowledge, slowly"
 startDate: 2026-03-22
 topics: ["PKM", "learning", "writing in public"]

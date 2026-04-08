@@ -1,4 +1,5 @@
 ---
+kind: note
 title: "Notes are a thinking space, not a publication"
 startDate: 2026-04-05
 topics: ["PKM", "writing in public", "digital gardens"]

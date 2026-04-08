@@ -10,7 +10,8 @@ interface Props {
 const { title, description = "Eliot Attridge — a working scientist's notebook, kept in public.", pathname = Astro.url.pathname } = Astro.props;
 
 const navItems = [
-  { href: '/', label: 'Notes' },
+  { href: '/', label: 'Latest' },
+  { href: '/streams/', label: 'Streams' },
   { href: '/topics/', label: 'Topics' },
   { href: '/about/', label: 'About' },
   { href: '/now/', label: 'Now' },

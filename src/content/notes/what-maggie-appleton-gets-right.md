@@ -1,4 +1,5 @@
 ---
+kind: note
 title: "What Maggie Appleton gets right (and what I'd skip)"
 startDate: 2026-04-02
 topics: ["digital gardens", "PKM", "writing in public"]

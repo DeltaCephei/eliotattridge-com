@@ -4,9 +4,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build && pagefind --site dist",
+    "metadata": "node scripts/build-metadata.mjs",
+    "dev": "npm run metadata && astro dev",
+    "start": "npm run metadata && astro dev",
+    "build": "npm run metadata && astro build && pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro"
   },

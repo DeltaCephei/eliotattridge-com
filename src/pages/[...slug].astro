@@ -23,18 +23,26 @@ const { Content } = await render(entry);
 // MDX components available in every note without import.
 const components = { Aside, Figure, IntroParagraph, Footnote, Ref, References, Reference };
 
-// v1 has one real layout, but the switching mechanism is in place from day one
-// so a second layout is one new branch and one new component, never a new file.
-const layout = entry.data.layout;
+// All five kinds currently render through NoteLayout — it has conditional
+// kind-specific blocks (link source card, reading book card) so a single
+// layout serves them all in v1. Splitting into per-kind layouts is one
+// new file each, when a real piece of content demands it.
+//
+// The `layout` frontmatter field is the escape hatch for one-off bespoke
+// treatments — not used yet, but the switch is here for when it is.
+const data = entry.data as any;
 ---
-{layout === 'default' && (
-  <NoteLayout
-    title={entry.data.title}
-    startDate={entry.data.startDate}
-    updated={entry.data.updated}
-    topics={entry.data.topics}
-    summary={entry.data.summary}
-  >
-    <Content components={components} />
-  </NoteLayout>
-)}
+<NoteLayout
+  slug={entry.id}
+  kind={data.kind}
+  title={data.title}
+  startDate={data.startDate}
+  updated={data.updated}
+  topics={data.topics}
+  summary={data.summary}
+  source={data.source}
+  book={data.book}
+  quote={data.quote}
+>
+  <Content components={components} />
+</NoteLayout>

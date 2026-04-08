@@ -1,40 +1,168 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import Backlinks from '../components/Backlinks.astro';
+import revisions from '../data/revisions.json';
+import { KIND_LABELS } from '../content.config';
 
 interface Props {
+  slug: string;
+  kind: string;
   title: string;
   startDate: Date;
   updated?: Date;
   topics?: string[];
   summary?: string;
+  source?: { url: string; author?: string; outlet?: string };
+  book?: { title: string; author: string };
+  quote?: string;
 }
 
-const { title, startDate, updated, topics, summary } = Astro.props;
+const { slug, kind, title, startDate, updated, topics, summary, source, book, quote } = Astro.props;
 
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-NZ', { day: 'numeric', month: 'long', year: 'numeric' });
+
+// Revision count comes from git log via the build-metadata script.
+// Falls back to 1 (current draft) if the file isn't yet committed.
+const revCount = (revisions as Record<string, number>)[slug] ?? 1;
+const revLabel = revCount === 1 ? 'first writing' : `tended ${revCount} times`;
+
+const kindLabel = KIND_LABELS[kind]?.singular ?? kind;
+const streamHref = `/streams/${kind}/`;
+
+// Try to derive a clean hostname for the link card
+let sourceHost: string | undefined;
+if (source?.url) {
+  try {
+    sourceHost = new URL(source.url).hostname.replace(/^www\./, '');
+  } catch {}
+}
 ---
 <BaseLayout title={`${title} — Eliot Attridge`} description={summary}>
   <article class="note-article">
     <header class="note-header">
-      <div class="crumbs"><a href="/">Notes</a></div>
+      <div class="crumbs">
+        <a href={streamHref}>{kindLabel}</a>
+      </div>
       <h1>{title}</h1>
       <div class="meta">
         <span>{fmt(startDate)}</span>
         {updated && <span>updated {fmt(updated)}</span>}
+        <span>{revLabel}</span>
         {topics && topics.length > 0 && (
-          <span>{topics.join(' · ')}</span>
+          <span>{topics.map(t => (
+            <a href={`/topics/${t.replace(/\s+/g, '-').toLowerCase()}/`}>{t}</a>
+          )).reduce((acc: any[], el, i, arr) => i < arr.length - 1 ? [...acc, el, ' · '] : [...acc, el], [])}</span>
         )}
       </div>
     </header>
+
+    {/* Link kind: source card sits above the prose */}
+    {kind === 'link' && source && (
+      <aside class="source-card">
+        <div class="source-label">Linking to</div>
+        <a href={source.url} class="source-link">
+          {source.url}
+        </a>
+        <div class="source-meta">
+          {source.author && <span>{source.author}</span>}
+          {source.outlet && <span>{source.outlet}</span>}
+          {sourceHost && <span>{sourceHost}</span>}
+        </div>
+      </aside>
+    )}
+
+    {/* Reading kind: book metadata + optional pulled quote */}
+    {kind === 'reading' && book && (
+      <aside class="book-card">
+        <div class="book-label">Reading</div>
+        <div class="book-title"><em>{book.title}</em></div>
+        <div class="book-author">{book.author}</div>
+        {quote && <blockquote class="book-quote">{quote}</blockquote>}
+      </aside>
+    )}
 
     <div class="prose">
       <slot />
     </div>
 
-    <section class="backlinks" hidden>
-      <h2>Mentioned in</h2>
-      <ul></ul>
-    </section>
+    <Backlinks slug={slug} />
   </article>
 </BaseLayout>
+
+<style>
+  .source-card,
+  .book-card {
+    margin: 2rem 0 2.5rem;
+    padding: 1.25rem 1.5rem;
+    border-left: 3px solid var(--accent);
+    background: rgba(31, 77, 44, 0.04);
+  }
+  .source-label,
+  .book-label {
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    margin-bottom: 0.5rem;
+  }
+  .source-link {
+    font-family: var(--display);
+    font-size: 1.05rem;
+    color: var(--accent);
+    word-break: break-word;
+  }
+  .source-meta,
+  .book-author {
+    margin-top: 0.5rem;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .source-meta span + span::before {
+    content: ' · ';
+    color: var(--ink-faint);
+  }
+  .book-title {
+    font-family: var(--italic);
+    font-size: 1.2rem;
+    color: var(--ink);
+  }
+  .book-quote {
+    margin: 1rem 0 0;
+    padding-left: 1rem;
+    border-left: 2px solid var(--ink-faint);
+    font-family: var(--italic);
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+  .backlinks {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--ink-faint);
+  }
+  .backlinks h2 {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    margin-bottom: 0.75rem;
+  }
+  .backlinks ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .backlinks li {
+    margin: 0.4rem 0;
+    font-family: var(--display);
+  }
+  .backlinks a {
+    color: var(--accent);
+  }
+  .crumbs a {
+    text-transform: lowercase;
+  }
+</style>

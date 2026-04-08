@@ -1,4 +1,5 @@
 ---
+kind: note
 title: "Confidence-weighted multiple choice, revisited"
 startDate: 2026-03-28
 topics: ["assessment", "learning science"]

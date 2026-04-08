@@ -1,11 +1,14 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { KIND_LABELS } from '../content.config';
 
 const allNotes = await getCollection('notes', ({ data }) => !data.draft);
 const notes = allNotes.sort(
   (a, b) => b.data.startDate.getTime() - a.data.startDate.getTime()
 );
+
+const kindOf = (n: any) => KIND_LABELS[n.data.kind]?.singular ?? n.data.kind;
 
 const lede = notes[0];
 const rest = notes.slice(1);
@@ -39,6 +42,7 @@ const ledeNum = String(notes.length).padStart(2, '\u2007');
     <article class="lede">
       <div class="num">№ {ledeNum}</div>
       <div>
+        <div class="kind-badge">{kindOf(lede)}</div>
         <h3><a href={`/${lede.id}/`}>{lede.data.title}</a></h3>
         {lede.data.summary && <p>{lede.data.summary}</p>}
         <div class="meta">
@@ -52,6 +56,7 @@ const ledeNum = String(notes.length).padStart(2, '\u2007');
   <ul class="articles">
     {rest.map(note => (
       <li>
+        <div class="kind-badge">{kindOf(note)}</div>
         <h3><a href={`/${note.id}/`}>{note.data.title}</a></h3>
         {note.data.summary && <p>{note.data.summary}</p>}
         <div class="meta">
@@ -61,6 +66,18 @@ const ledeNum = String(notes.length).padStart(2, '\u2007');
       </li>
     ))}
   </ul>
+
+  <style>
+    .kind-badge {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+  </style>
 
   {topics.length > 0 && (
     <div class="topics">

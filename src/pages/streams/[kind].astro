@@ -1,0 +1,51 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { KIND_LABELS, KIND_ORDER } from '../../content.config';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('notes', ({ data }) => !data.draft);
+  return KIND_ORDER.map(kind => ({
+    params: { kind },
+    props: {
+      kind,
+      notes: notes
+        .filter(n => (n.data as any).kind === kind)
+        .sort((a, b) => b.data.startDate.getTime() - a.data.startDate.getTime()),
+    },
+  }));
+}
+
+const { kind, notes } = Astro.props;
+const label = KIND_LABELS[kind];
+
+const fmtShort = (d: Date) =>
+  d.toLocaleDateString('en-NZ', { day: 'numeric', month: 'short', year: 'numeric' });
+---
+<BaseLayout title={`${label.plural} — Eliot Attridge`}>
+  <div class="section-rule"><h2>{label.plural}</h2></div>
+
+  {notes.length === 0 ? (
+    <p class="empty">Nothing in this stream yet.</p>
+  ) : (
+    <ul class="topic-list">
+      {notes.map(note => (
+        <li>
+          <span class="date">{fmtShort(note.data.startDate)}</span>
+          <div>
+            <h3><a href={`/${note.id}/`}>{note.data.title}</a></h3>
+            {note.data.summary && <p>{note.data.summary}</p>}
+          </div>
+        </li>
+      ))}
+    </ul>
+  )}
+</BaseLayout>
+
+<style>
+  .empty {
+    color: var(--ink-faint);
+    font-style: italic;
+    margin-top: 2rem;
+  }
+</style>
