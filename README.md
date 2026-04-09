@@ -1,6 +1,6 @@
 # eliotattridge.com
 
-A working scientist's notebook, kept in public. Astro 5 + MDX content collections, deploying to Cloudflare Pages.
+A working scientist's notebook, kept in public. Astro 5 + MDX content collections, deployed to Cloudflare Workers (Static Assets) at [eliotattridge.com](https://eliotattridge.com).
 
 ## Local
 
@@ -73,7 +73,7 @@ The schema is a Zod discriminated union — if you set `kind: link` and forget `
    ---
    ```
 5. Write.
-6. `git add` & `git push`. Cloudflare Pages builds.
+6. `git add` & `git push`. Cloudflare's GitHub integration auto-builds and deploys the Worker on every push to `main` (~45s end-to-end).
 
 ## Cross-links and backlinks
 
@@ -132,11 +132,18 @@ When a single note needs a one-off bespoke visual treatment, set `layout: 'somet
 
 When a sixth `kind` is genuinely needed, add a new variant to the discriminated union in `src/content.config.ts`, add it to `KIND_LABELS` and `KIND_ORDER`, and (optionally) add a kind-specific block in `NoteLayout.astro`. The streams pages and home stream pick it up automatically.
 
+## Deploy
+
+The site is a Workers + Static Assets project. The repo's `wrangler.jsonc` tells Cloudflare this is static-only (no SSR adapter, no KV bindings), so `wrangler deploy` just uploads `./dist` to the Worker. Cloudflare's GitHub integration is wired to `DeltaCephei/eliotattridge-com` and rebuilds on every push to `main`.
+
+Custom domains attached: `eliotattridge.com` (apex) and `www.eliotattridge.com`.
+
+If the build ever needs the Astro Cloudflare adapter (for SSR features later), the migration is `npx astro add cloudflare` plus a few extra lines in `wrangler.jsonc`. Don't add the adapter speculatively — the current static path is the simplest.
+
 ## Deferred for v1.1
 
 - Pagefind UI integration (Pagefind index is built; the search UI is the next step).
 - Proper Open Graph images.
-- Cloudflare Pages deploy via `wrangler` and the `claude-eliotattridge-com` API token.
 - Photo optimisation via `astro:assets <Image />`.
 
 These are intentional. v1 ships first.
