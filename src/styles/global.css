@@ -13,6 +13,7 @@
   --rule: #e6e3d6;
   --accent: #1f4d2c;       /* deep forest green */
   --accent-soft: #2f6a3e;
+  --accent-vivid: #00b85e; /* vivid green for reference numbers (from Bio3) */
   --display: 'Inter Tight', system-ui, sans-serif;
   --sans: 'Inter', system-ui, sans-serif;
   --italic: 'EB Garamond', Georgia, serif;
@@ -447,7 +448,7 @@ sup.ref {
 }
 sup.fn-ref a,
 sup.ref a {
-  color: var(--accent);
+  color: var(--accent-vivid);
   border-bottom: none;
   text-decoration: none;
   background: none;
