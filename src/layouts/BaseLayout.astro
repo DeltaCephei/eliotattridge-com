@@ -33,6 +33,7 @@ const isActive = (href: string) => {
   <meta name="description" content={description} />
   <link rel="alternate" type="application/rss+xml" title="Eliot Attridge — notes" href="/rss.xml" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
 </head>
 <body>
   <main class="page">
@@ -49,11 +50,26 @@ const isActive = (href: string) => {
       ))}
     </nav>
 
+    <div id="search"></div>
+
     <slot />
 
     <footer class="colophon">
       Started 2026 &nbsp;·&nbsp; Marlborough, Aotearoa New Zealand &nbsp;·&nbsp; CC BY-NC 4.0 &nbsp;·&nbsp; <a href="/rss.xml">RSS</a>
     </footer>
   </main>
+  <script is:inline>
+    // Load Pagefind UI dynamically (is:inline + src= is broken in Astro)
+    var s = document.createElement('script');
+    s.src = '/pagefind/pagefind-ui.js';
+    s.onload = function() {
+      new PagefindUI({
+        element: '#search',
+        showSubResults: true,
+        showImages: false,
+      });
+    };
+    document.head.appendChild(s);
+  </script>
 </body>
 </html>

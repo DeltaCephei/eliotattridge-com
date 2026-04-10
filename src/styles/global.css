@@ -592,6 +592,37 @@ sup.ref a:hover { text-decoration: underline; }
 .topic-list h3 a:hover { color: var(--accent); }
 .topic-list p { margin: 0; color: var(--ink-soft); font-size: 15.5px; line-height: 1.55; }
 
+/* ───────── Pagefind search ───────── */
+.pagefind-ui {
+  --pagefind-ui-scale: 0.85;
+  --pagefind-ui-primary: var(--accent);
+  --pagefind-ui-text: var(--ink);
+  --pagefind-ui-background: var(--paper);
+  --pagefind-ui-border: var(--rule);
+  --pagefind-ui-tag: var(--rule);
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: 4px;
+  --pagefind-ui-font: var(--sans);
+  margin-bottom: 48px;
+}
+/* Hide the search until results appear, keep the input compact */
+.pagefind-ui .pagefind-ui__search-input {
+  font-family: var(--sans);
+  font-size: 14px;
+}
+.pagefind-ui .pagefind-ui__result-link {
+  font-family: var(--display);
+  font-weight: 600;
+  color: var(--ink);
+}
+.pagefind-ui .pagefind-ui__result-link:hover {
+  color: var(--accent);
+}
+.pagefind-ui .pagefind-ui__result-excerpt {
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
 /* ───────── Mobile ───────── */
 @media (max-width: 760px) {
   .page { padding: 36px 24px 100px; }
